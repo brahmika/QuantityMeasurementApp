@@ -5,6 +5,8 @@ public final class QuantityLength {
     private final double value;
     private final LengthUnit unit;
 
+    private static final double EPSILON = 0.0001;
+
     public QuantityLength(double value, LengthUnit unit) {
 
         if (!Double.isFinite(value)) {
@@ -27,16 +29,25 @@ public final class QuantityLength {
         return unit;
     }
 
-    private double toBase() {
-        return unit.toBase(value);
+    // Convert to another unit
+    public QuantityLength convertTo(LengthUnit targetUnit) {
+
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("Target unit cannot be null");
+        }
+
+        double baseValue = unit.convertToBaseUnit(value);
+        double convertedValue = targetUnit.convertFromBaseUnit(baseValue);
+
+        return new QuantityLength(convertedValue, targetUnit);
     }
 
-    // UC6 (implicit target = first operand)
+    // UC6 – implicit target (first operand)
     public QuantityLength add(QuantityLength other) {
         return add(other, this.unit);
     }
 
-    // ✅ UC7 (explicit target unit)
+    // UC7 – explicit target
     public QuantityLength add(QuantityLength other, LengthUnit targetUnit) {
 
         if (other == null) {
@@ -47,11 +58,17 @@ public final class QuantityLength {
             throw new IllegalArgumentException("Target unit cannot be null");
         }
 
-        double baseSum = this.toBase() + other.toBase();
+        double baseSum =
+                this.unit.convertToBaseUnit(this.value) +
+                        other.unit.convertToBaseUnit(other.value);
 
-        double resultValue = targetUnit.fromBase(baseSum);
+        double result = targetUnit.convertFromBaseUnit(baseSum);
 
-        return new QuantityLength(resultValue, targetUnit);
+        return new QuantityLength(result, targetUnit);
+    }
+
+    private double toBase() {
+        return unit.convertToBaseUnit(value);
     }
 
     @Override
@@ -62,7 +79,7 @@ public final class QuantityLength {
 
         QuantityLength other = (QuantityLength) obj;
 
-        return Double.compare(this.toBase(), other.toBase()) == 0;
+        return Math.abs(this.toBase() - other.toBase()) < EPSILON;
     }
 
     @Override

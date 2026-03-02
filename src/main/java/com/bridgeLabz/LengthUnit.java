@@ -9,24 +9,28 @@ package com.bridgeLabz;
 
 public enum LengthUnit {
 
-    FEET(1.0),                // base unit
-    INCHES(1.0 / 12.0),       // 12 inches = 1 foot
-    YARDS(3.0),               // 1 yard = 3 feet
-    CENTIMETERS(1.0 / 30.48); // 30.48 cm = 1 foot
+    FEET(1.0),                 // Base unit
+    INCH(1.0 / 12.0),        // 12 inches = 1 foot
+    YARDS(3.0),                // 1 yard = 3 feet
+    CENTIMETERS(1.0 / 30.48);  // 30.48 cm = 1 foot
 
-    private final double conversionFactor; // relative to FEET
+    private final double conversionFactorToFeet;
 
-    LengthUnit(double conversionFactor) {
-        this.conversionFactor = conversionFactor;
+    LengthUnit(double conversionFactorToFeet) {
+        this.conversionFactorToFeet = conversionFactorToFeet;
     }
 
-    // Convert given value to base unit (feet)
-    public double toBase(double value) {
-        return value * conversionFactor;
+    // Convert value in THIS unit → FEET (base unit)
+    public double convertToBaseUnit(double value) {
+        return value * conversionFactorToFeet;
     }
 
-    // Convert from base unit (feet) to this unit
-    public double fromBase(double baseValue) {
-        return baseValue / conversionFactor;
+    // Convert value in FEET → THIS unit
+    public double convertFromBaseUnit(double baseValue) {
+        return baseValue / conversionFactorToFeet;
+    }
+
+    public double getConversionFactor() {
+        return conversionFactorToFeet;
     }
 }
