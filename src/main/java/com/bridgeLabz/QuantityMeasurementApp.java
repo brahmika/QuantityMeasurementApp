@@ -20,22 +20,20 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        QuantityLength q1 =
-                new QuantityLength(1.0, LengthUnit.FEET);
+        QuantityLength a = new QuantityLength(1.0, LengthUnit.FEET);
+        QuantityLength b = new QuantityLength(12.0, LengthUnit.INCHES);
 
-        QuantityLength q2 =
-                new QuantityLength(12.0, LengthUnit.INCH);
+        System.out.println("Addition Example:");
+        System.out.println(a + " + " + b + " = " + a.add(b));
 
-        System.out.println(q1 + " and " + q2 +
-                " → Equal: " + q1.equals(q2));
+        QuantityLength yard = new QuantityLength(1.0, LengthUnit.YARDS);
+        QuantityLength feet = new QuantityLength(3.0, LengthUnit.FEET);
 
-        QuantityLength q3 =
-                new QuantityLength(1.0, LengthUnit.INCH);
+        System.out.println(yard + " + " + feet + " = " + yard.add(feet));
 
-        QuantityLength q4 =
-                new QuantityLength(1.0, LengthUnit.INCH);
+        QuantityLength cm = new QuantityLength(2.54, LengthUnit.CENTIMETERS);
+        QuantityLength inch = new QuantityLength(1.0, LengthUnit.INCHES);
 
-        System.out.println(q3 + " and " + q4 +
-                " → Equal: " + q3.equals(q4));
+        System.out.println(cm + " + " + inch + " = " + cm.add(inch));
     }
 }
