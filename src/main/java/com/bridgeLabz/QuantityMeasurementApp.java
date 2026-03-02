@@ -20,22 +20,20 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        QuantityLength q1 =
-                new QuantityLength(1.0, LengthUnit.FEET);
+        System.out.println(
+                QuantityLength.convert(1.0, LengthUnit.FEET, LengthUnit.INCHES)
+        );  // 12.0
 
-        QuantityLength q2 =
-                new QuantityLength(12.0, LengthUnit.INCH);
+        System.out.println(
+                QuantityLength.convert(3.0, LengthUnit.YARDS, LengthUnit.FEET)
+        );  // 9.0
 
-        System.out.println(q1 + " and " + q2 +
-                " → Equal: " + q1.equals(q2));
+        System.out.println(
+                QuantityLength.convert(36.0, LengthUnit.INCHES, LengthUnit.YARDS)
+        );  // 1.0
 
-        QuantityLength q3 =
-                new QuantityLength(1.0, LengthUnit.INCH);
-
-        QuantityLength q4 =
-                new QuantityLength(1.0, LengthUnit.INCH);
-
-        System.out.println(q3 + " and " + q4 +
-                " → Equal: " + q3.equals(q4));
+        System.out.println(
+                QuantityLength.convert(1.0, LengthUnit.CENTIMETERS, LengthUnit.INCHES)
+        );  // ≈ 0.393701
     }
 }
