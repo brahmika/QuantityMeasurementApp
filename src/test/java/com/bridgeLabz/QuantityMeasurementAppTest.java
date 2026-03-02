@@ -2,41 +2,77 @@ package com.bridgeLabz;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class QuantityMeasurementAppTest {
-    @Test
-    void givenTwoEqualFeetValues_shouldReturnTrue(){
-        QuantityMeasurementApp.Feet feet1 = new QuantityMeasurementApp.Feet(5.0);
-        QuantityMeasurementApp.Feet feet2 = new QuantityMeasurementApp.Feet(6.0);
 
-        assertFalse(feet1.equals(feet2));
-    }
-    @Test
-    void givenTwoDifferentFeetValues_shouldReturnFalse(){
-        QuantityMeasurementApp.Feet feet1 = new QuantityMeasurementApp.Feet(5.0);
-        QuantityMeasurementApp.Feet feet2 = new QuantityMeasurementApp.Feet(6.0);
 
-        assertFalse(feet1.equals(feet2));
+    // Tests equality when values are same
+    @Test
+    void testFeetEquality_SameValue() {
+        assertTrue(QuantityMeasurementApp.checkFeetEquality(5.0, 5.0));
     }
 
+    // Tests inequality when values differ
     @Test
-    void givenSameReference_shouldReturnTrue(){
-        QuantityMeasurementApp.Feet feet1 = new QuantityMeasurementApp.Feet(5.0);
-        assertTrue(feet1.equals(feet1));
+    void testFeetEquality_DifferentValue() {
+        assertFalse(QuantityMeasurementApp.checkFeetEquality(5.0, 6.0));
+    }
+
+    // Tests reflexive property (same reference)
+    @Test
+    void testFeetEquality_SameReference() {
+        QuantityMeasurementApp.Feet feet =
+                new QuantityMeasurementApp.Feet(2.0);
+
+        assertTrue(feet.equals(feet));
+    }
+
+    // Tests null comparison safety
+    @Test
+    void testFeetEquality_NullComparison() {
+        QuantityMeasurementApp.Feet feet =
+                new QuantityMeasurementApp.Feet(2.0);
+
+        assertFalse(feet.equals(null));
+    }
+
+    // Tests invalid numeric input
+    @Test
+    void testFeetEquality_NonNumericInput() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new QuantityMeasurementApp.Feet(Double.NaN));
     }
 
     @Test
-    void givenNull_shouldReturnFalse() {
-        QuantityMeasurementApp.Feet feet1 = new QuantityMeasurementApp.Feet(5.0);
-
-        assertFalse(feet1.equals(null));
+    void testInchesEquality_SameValue() {
+        assertTrue(QuantityMeasurementApp.checkInchesEquality(3.0, 3.0));
     }
+
     @Test
-    void givenDifferentType_shouldReturnFalse() {
-        QuantityMeasurementApp.Feet feet1 = new QuantityMeasurementApp.Feet(5.0);
-        assertFalse(feet1.equals("5.0"));
+    void testInchesEquality_DifferentValue() {
+        assertFalse(QuantityMeasurementApp.checkInchesEquality(3.0, 4.0));
+    }
+
+    @Test
+    void testInchesEquality_SameReference() {
+        QuantityMeasurementApp.Inches inch =
+                new QuantityMeasurementApp.Inches(1.0);
+
+        assertTrue(inch.equals(inch));
+    }
+
+    @Test
+    void testInchesEquality_NullComparison() {
+        QuantityMeasurementApp.Inches inch =
+                new QuantityMeasurementApp.Inches(1.0);
+
+        assertFalse(inch.equals(null));
+    }
+
+    @Test
+    void testInchesEquality_NonNumericInput() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new QuantityMeasurementApp.Inches(Double.POSITIVE_INFINITY));
     }
 }
-
