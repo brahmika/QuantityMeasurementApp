@@ -20,22 +20,19 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        QuantityLength q1 =
-                new QuantityLength(1.0, LengthUnit.FEET);
+        QuantityWeight w1 = new QuantityWeight(1.0, WeightUnit.KILOGRAM);
+        QuantityWeight w2 = new QuantityWeight(1000.0, WeightUnit.GRAM);
 
-        QuantityLength q2 =
-                new QuantityLength(12.0, LengthUnit.INCH);
+        System.out.println("Equality: " + w1.equals(w2));
 
-        System.out.println(q1 + " and " + q2 +
-                " → Equal: " + q1.equals(q2));
+        QuantityWeight converted = w1.convertTo(WeightUnit.POUND);
+        System.out.println("Converted: " + converted);
 
-        QuantityLength q3 =
-                new QuantityLength(1.0, LengthUnit.INCH);
+        QuantityWeight sum = w1.add(w2);
+        System.out.println("Sum: " + sum);
 
-        QuantityLength q4 =
-                new QuantityLength(1.0, LengthUnit.INCH);
-
-        System.out.println(q3 + " and " + q4 +
-                " → Equal: " + q3.equals(q4));
+        QuantityWeight explicitSum =
+                w1.add(w2, WeightUnit.GRAM);
+        System.out.println("Explicit Sum: " + explicitSum);
     }
 }
