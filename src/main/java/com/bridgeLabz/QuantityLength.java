@@ -28,7 +28,7 @@ public final class QuantityLength {
     }
 
     private double toBase() {
-        return unit.toBase(value);
+        return unit.convertToBaseUnit(value);
     }
 
     // UC6 (implicit target = first operand)
@@ -49,7 +49,7 @@ public final class QuantityLength {
 
         double baseSum = this.toBase() + other.toBase();
 
-        double resultValue = targetUnit.fromBase(baseSum);
+        double resultValue = targetUnit.convertFromBaseUnit(baseSum);
 
         return new QuantityLength(resultValue, targetUnit);
     }

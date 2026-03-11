@@ -7,26 +7,24 @@
  */
 package com.bridgeLabz;
 
-public enum LengthUnit {
+public enum LengthUnit implements IMeasurable {
 
-    FEET(1.0),                // base unit
-    INCHES(1.0 / 12.0),       // 12 inches = 1 foot
-    YARDS(3.0),               // 1 yard = 3 feet
-    CENTIMETERS(1.0 / 30.48); // 30.48 cm = 1 foot
+    FEET(12.0),
+    INCHES(1.0),
+    YARDS(36.0),
+    CENTIMETERS(0.393701);
 
-    private final double conversionFactor; // relative to FEET
+    private final double conversionFactor;
 
-    LengthUnit(double conversionFactor) {
-        this.conversionFactor = conversionFactor;
+    LengthUnit(double factor) {
+        this.conversionFactor = factor;
     }
 
-    // Convert given value to base unit (feet)
-    public double toBase(double value) {
-        return value * conversionFactor;
+    public double getConversionFactor() {
+        return conversionFactor;
     }
 
-    // Convert from base unit (feet) to this unit
-    public double fromBase(double baseValue) {
-        return baseValue / conversionFactor;
+    public String getUnitName() {
+        return this.name();
     }
 }
