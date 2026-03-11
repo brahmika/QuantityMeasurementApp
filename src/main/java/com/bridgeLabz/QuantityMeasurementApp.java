@@ -4,21 +4,27 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        Quantity<LengthUnit> q1 =
-                new Quantity<>(10.0, LengthUnit.FOOT);
+        Quantity<TemperatureUnit> temp1 =
+                new Quantity<>(0, TemperatureUnit.CELSIUS);
 
-        Quantity<LengthUnit> q2 =
-                new Quantity<>(6.0, LengthUnit.INCH);
+        Quantity<TemperatureUnit> temp2 =
+                new Quantity<>(32, TemperatureUnit.FAHRENHEIT);
 
-        Quantity<LengthUnit> addResult = q1.add(q2);
+        System.out.println("Equality Test:");
+        System.out.println(temp1.equals(temp2));
 
-        Quantity<LengthUnit> subtractResult = q1.subtract(q2);
+        System.out.println("\nConversion Test:");
+        System.out.println(
+                new Quantity<>(100, TemperatureUnit.CELSIUS)
+                        .convertTo(TemperatureUnit.FAHRENHEIT)
+        );
 
-        double divideResult =
-                q1.divide(new Quantity<>(2.0, LengthUnit.FOOT));
+        System.out.println("\nUnsupported Operation Test:");
 
-        System.out.println("Addition: " + addResult);
-        System.out.println("Subtraction: " + subtractResult);
-        System.out.println("Division: " + divideResult);
+        try {
+            temp1.add(new Quantity<>(50, TemperatureUnit.CELSIUS));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

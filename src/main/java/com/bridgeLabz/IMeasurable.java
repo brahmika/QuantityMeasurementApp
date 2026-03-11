@@ -2,7 +2,18 @@ package com.bridgeLabz;
 
 public interface IMeasurable {
 
-    double convertToBaseUnit(double value);
+    double toBase(double value);
+    double fromBase(double value);
 
-    double convertFromBaseUnit(double baseValue);
+    // Lambda: by default all units support arithmetic
+    SupportsArithmetic supportsArithmetic = () -> true;
+
+    default boolean supportsArithmetic() {
+        return supportsArithmetic.isSupported();
+    }
+
+    // default validation method
+    default void validateOperationSupport(String operation) {
+        // do nothing (other units allow operations)
+    }
 }
