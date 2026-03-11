@@ -1,30 +1,24 @@
-/**
- * LengthUnit Enum
- *
- * Represents supported length units.
- * Each unit stores its conversion factor relative to
- * the base unit (FEET).
- */
 package com.bridgeLabz;
 
 public enum LengthUnit implements IMeasurable {
 
-    FEET(12.0),
-    INCHES(1.0),
-    YARDS(36.0),
-    CENTIMETERS(0.393701);
+    INCH(1.0),
+    FOOT(12.0),
+    YARD(36.0);
 
-    private final double conversionFactor;
+    private final double toBaseFactor;
 
-    LengthUnit(double factor) {
-        this.conversionFactor = factor;
+    LengthUnit(double toBaseFactor) {
+        this.toBaseFactor = toBaseFactor;
     }
 
-    public double getConversionFactor() {
-        return conversionFactor;
+    @Override
+    public double convertToBaseUnit(double value) {
+        return value * toBaseFactor;
     }
 
-    public String getUnitName() {
-        return this.name();
+    @Override
+    public double convertFromBaseUnit(double baseValue) {
+        return baseValue / toBaseFactor;
     }
 }
