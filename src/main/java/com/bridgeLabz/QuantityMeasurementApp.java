@@ -27,6 +27,23 @@ public class QuantityMeasurementApp {
     }
 
     public static void main(String[] args) {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+
+        Quantity<VolumeUnit> v3 =
+                new Quantity<>(1.0, VolumeUnit.GALLON);
+
+// Equality
+        demonstrateEquality(v1, v2);
+
+// Conversion
+        demonstrateConversion(v1, VolumeUnit.MILLILITRE);
+
+// Addition
+        demonstrateAddition(v1, v2, VolumeUnit.LITRE);
 
         Quantity<LengthUnit> q1 =
                 new Quantity<>(1.0, LengthUnit.FEET);
