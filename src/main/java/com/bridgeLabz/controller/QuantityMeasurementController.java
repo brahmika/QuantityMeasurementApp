@@ -3,22 +3,33 @@ package com.bridgeLabz.controller;
 import com.bridgeLabz.dto.QuantityDTO;
 import com.bridgeLabz.entity.QuantityMeasurementEntity;
 import com.bridgeLabz.service.IQuantityMeasurementService;
+import com.bridgeLabz.service.QuantityMeasurementServiceImpl;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/quantities")
 public class QuantityMeasurementController {
 
-    private IQuantityMeasurementService service;
+    private final QuantityMeasurementServiceImpl service;
 
-    public QuantityMeasurementController(IQuantityMeasurementService service) {
+    public QuantityMeasurementController(QuantityMeasurementServiceImpl service) {
         this.service = service;
     }
 
-    public void performComparison(QuantityDTO q1, QuantityDTO q2) {
-        QuantityMeasurementEntity result = service.compare(q1, q2);
-        System.out.println(result);
+    @PostMapping("/save")
+    public QuantityMeasurementEntity save(@RequestBody QuantityMeasurementEntity entity) {
+        return service.save(entity);
     }
 
-    public void performAddition(QuantityDTO q1, QuantityDTO q2) {
-        QuantityMeasurementEntity result = service.add(q1, q2);
-        System.out.println(result);
+    @GetMapping("/all")
+    public List<QuantityMeasurementEntity> getAll() {
+        return service.getAll();
+    }
+
+    @GetMapping("/operation/{op}")
+    public List<QuantityMeasurementEntity> getByOperation(@PathVariable String op) {
+        return service.getByOperation(op);
     }
 }
